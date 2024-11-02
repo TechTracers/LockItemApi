@@ -1,0 +1,294 @@
+{
+  "categories": [
+    {
+      "name": "Camisas"
+    },
+    {
+      "name": "Pantalones"
+    },
+    {
+      "name": "Zapatos"
+    },
+    {
+      "name": "Accesorios"
+    },
+    {
+      "name": "Chaquetas"
+    }
+  ],
+  "products": [
+    {
+      "name": "Camisa Casual",
+      "description": "Camisa de algodón cómoda y ligera para el día a día.",
+      "imageUrl": "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/128649907_1/w=800,h=800,fit=pad",
+      "categoryId": 1
+    },
+    {
+      "name": "Camisa Formal",
+      "description": "Camisa elegante de manga larga para ocasiones especiales.",
+      "imageUrl": "https://img.freepik.com/psd-gratis/retrato-mujer-negocios_23-2150116816.jpg",
+      "categoryId": 1
+    },
+    {
+      "name": "Camisa Estampada",
+      "description": "Camisa con diseños únicos y modernos.",
+      "imageUrl": "https://mbo.com.pe/cdn/shop/files/camisa-manga-larga-cuello-resort-slim-fit-pv24-beige-estampado-mbo-1.jpg?v=1696476853",
+      "categoryId": 1
+    },
+    {
+      "name": "Pantalón Jeans",
+      "description": "Jeans azul clásico, ideal para cualquier ocasión.",
+      "imageUrl": "https://www.pionier.pe/assets/upload/producto/5081102138_2.jpg",
+      "categoryId": 2
+    },
+    {
+      "name": "Pantalón Chino",
+      "description": "Pantalón versátil y cómodo para un look casual.",
+      "imageUrl": "https://oechsle.vteximg.com.br/arquivos/ids/11299344-1000-1000/1790547.jpg?v=637986255749530000",
+      "categoryId": 2
+    },
+    {
+      "name": "Pantalón Deportivo",
+      "description": "Pantalón ligero y transpirable para actividades deportivas.",
+      "imageUrl": "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/19843051_1/w=800,h=800,fit=pad",
+      "categoryId": 2
+    },
+    {
+      "name": "Zapatos Deportivos",
+      "description": "Zapatos cómodos para entrenamiento y caminatas.",
+      "imageUrl": "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/125202788_03/w=800,h=800,fit=pad",
+      "categoryId": 3
+    },
+    {
+      "name": "Zapatos Elegantes",
+      "description": "Zapatos de cuero para un look formal.",
+      "imageUrl": "https://i.ebayimg.com/images/g/c1sAAOSwyzJhdsdE/s-l1600.webp",
+      "categoryId": 3
+    },
+    {
+      "name": "Botas de Montaña",
+      "description": "Botas resistentes y cómodas para aventuras al aire libre.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrJpfc-lFZzVsMyEK-uH_DV_of0XHEUyKe7A&s",
+      "categoryId": 3
+    },
+    {
+      "name": "Gorra Casual",
+      "description": "Gorra de algodón ideal para protección solar.",
+      "imageUrl": "https://www.buffalo.com.pe/images/producto/gorra-casual-clothes710.jpg",
+      "categoryId": 4
+    },
+    {
+      "name": "Bufanda de Lana",
+      "description": "Bufanda suave y cálida para el invierno.",
+      "imageUrl": "https://live.staticflickr.com/2678/4449217455_acd87effc5_z.jpg",
+      "categoryId": 4
+    },
+    {
+      "name": "Cinturón de Cuero",
+      "description": "Cinturón resistente de cuero genuino.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQviandV5k38Gbb-T2HFCj6IVmky7vsiNF3A&s",
+      "categoryId": 4
+    },
+    {
+      "name": "Chaqueta de Cuero",
+      "description": "Chaqueta clásica de cuero para un estilo único.",
+      "imageUrl": "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/120222977_01/w=800,h=800,fit=pad",
+      "categoryId": 5
+    },
+    {
+      "name": "Chaqueta Impermeable",
+      "description": "Chaqueta ligera para protección contra la lluvia.",
+      "imageUrl": "https://trekkinghouseperu.pe/wp-content/uploads/2024/02/Sin-titulo-11-5.jpg",
+      "categoryId": 5
+    },
+    {
+      "name": "Parka de Invierno",
+      "description": "Parka acolchada para clima frío.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrjv2ZXt0JTRIEuKz3-sSVE--7rEsoFJXkmw&s",
+      "categoryId": 5
+    },
+    {
+      "name": "Camisa de Lino",
+      "description": "Camisa ligera y fresca ideal para el verano.",
+      "imageUrl": "https://i.pinimg.com/736x/39/2a/c1/392ac1f2792efae06a75921c6ad816e9.jpg",
+      "categoryId": 1
+    },
+    {
+      "name": "Pantalón Cargo",
+      "description": "Pantalón con bolsillos para un estilo aventurero.",
+      "imageUrl": "https://i.pinimg.com/736x/f9/6f/62/f96f621de4b6dac2e67d32f3fac8dec6.jpg",
+      "categoryId": 2
+    },
+    {
+      "name": "Zapatos de Tela",
+      "description": "Zapatos casuales de tela para el día a día.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKEh4OyQwDJ1sVfqZQ3W-1wrt5KKuhgtJEgQ&s",
+      "categoryId": 3
+    },
+    {
+      "name": "Reloj Deportivo",
+      "description": "Reloj resistente al agua, ideal para deportes.",
+      "imageUrl": "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/4022/PMP20000300439/full_image-1.jpeg",
+      "categoryId": 4
+    },
+    {
+      "name": "Chaleco Acolchado",
+      "description": "Chaleco cálido y ligero para usar en capas.",
+      "imageUrl": "https://mamamountainperu.com/wp-content/uploads/Chaleco-acolchado-de-plumon-Forclaz-MT500.5.webp",
+      "categoryId": 5
+    }
+  ],
+  "stores": [
+    {
+      "name": "Moda Urbana",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBueiRKGujuF0zbnfTNRgXAKIpol7aYFGQfA&s"
+    },
+    {
+      "name": "Tienda Andina",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDk6m1V0tQxPKJC5oFTPIQQbmw0fekgsRk9A&s"
+    },
+    {
+      "name": "Estilo Elegante",
+      "imageUrl": "https://www.shutterstock.com/image-vector/fashion-luxury-glamour-elegant-woman-260nw-337106972.jpg"
+    },
+    {
+      "name": "Deportes Total",
+      "imageUrl": "https://logowik.com/content/uploads/images/deporte-total7450.logowik.com.webp"
+    },
+    {
+      "name": "Aventura Outdoor",
+      "imageUrl": "https://www.shutterstock.com/image-vector/mountain-view-label-emblem-badge-260nw-2179079413.jpg"
+    }
+  ],
+  "storeProducts": [
+    {
+      "productId": 1,
+      "storeId": 1,
+      "price": 99.90
+    },
+    {
+      "productId": 2,
+      "storeId": 1,
+      "price": 120.50
+    },
+    {
+      "productId": 3,
+      "storeId": 2,
+      "price": 85.00
+    },
+    {
+      "productId": 4,
+      "storeId": 2,
+      "price": 60.00
+    },
+    {
+      "productId": 5,
+      "storeId": 3,
+      "price": 75.50
+    },
+    {
+      "productId": 6,
+      "storeId": 3,
+      "price": 55.00
+    },
+    {
+      "productId": 7,
+      "storeId": 4,
+      "price": 130.00
+    },
+    {
+      "productId": 8,
+      "storeId": 4,
+      "price": 200.00
+    },
+    {
+      "productId": 9,
+      "storeId": 5,
+      "price": 150.00
+    },
+    {
+      "productId": 10,
+      "storeId": 5,
+      "price": 35.00
+    },
+    {
+      "productId": 11,
+      "storeId": 1,
+      "price": 45.00
+    },
+    {
+      "productId": 12,
+      "storeId": 1,
+      "price": 25.00
+    },
+    {
+      "productId": 13,
+      "storeId": 2,
+      "price": 250.00
+    },
+    {
+      "productId": 14,
+      "storeId": 2,
+      "price": 99.00
+    },
+    {
+      "productId": 15,
+      "storeId": 3,
+      "price": 185.00
+    },
+    {
+      "productId": 16,
+      "storeId": 3,
+      "price": 50.00
+    },
+    {
+      "productId": 17,
+      "storeId": 4,
+      "price": 89.90
+    },
+    {
+      "productId": 18,
+      "storeId": 4,
+      "price": 40.00
+    },
+    {
+      "productId": 19,
+      "storeId": 5,
+      "price": 180.00
+    },
+    {
+      "productId": 20,
+      "storeId": 5,
+      "price": 150.00
+    }
+  ],
+  "users": [
+    {
+      "username": "juandiaz89",
+      "password": "securePass123",
+      "name": "Juan",
+      "lastname": "Díaz",
+      "email": "juandiaz89@example.com",
+      "phone": "987654321",
+      "role": "NORMAL"
+    },
+    {
+      "username": "mariagonzales",
+      "password": "mariaPass456",
+      "name": "María",
+      "lastname": "Gonzales",
+      "email": "mariagonzales@example.com",
+      "phone": "912345678",
+      "role": "NORMAL"
+    },
+    {
+      "username": "admin_peru",
+      "password": "adminSecure789",
+      "name": "Carlos",
+      "lastname": "Vega",
+      "email": "adminperu@example.com",
+      "phone": "911223344",
+      "role": "ADMIN"
+    }
+  ]
+}
