@@ -24,7 +24,7 @@ class JSONObject(KeyableObject):
         return f"{self.__dict__}"
 
 
-base = "http://localhost:8080/api/v1/"
+base = "https://api-lockitem-ccbscyfmgvc5a9eu.canadacentral-01.azurewebsites.net/api/v1/"
 with open("source.json", encoding="utf-8") as fs:
     source = JSONObject(json.load(fs))
 
