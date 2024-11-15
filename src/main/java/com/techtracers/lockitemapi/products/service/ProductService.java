@@ -9,6 +9,7 @@ import com.techtracers.lockitemapi.shared.exception.ResourceAlreadyExistsExcepti
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,8 +25,7 @@ public class ProductService extends CrudService<Product, Long> implements IProdu
     @Override
     public Product save(Product product) throws RuntimeException {
         Optional<Product> duplicated = this.findByNameAndCategory(product.getName(), product.getCategory());
-        if((product.getId() == null && duplicated.isPresent()) ||
-                (product.getId() != null && duplicated.isPresent() && !product.getId().equals(duplicated.get().getId())))
+        if((duplicated.isPresent() && !Objects.equals(product.getId(), duplicated.get().getId())))
             throw new ResourceAlreadyExistsException("The given product already exists.");
         return super.save(product);
     }

@@ -15,7 +15,10 @@ public class ProductMapper implements IEntityMapper<Product, ProductResource, Cr
 
     @Override
     public Product fromCreateResourceToModel(CreateProductResource createProductResource) {
-        return mapper.map(createProductResource, Product.class);
+        Product product = mapper.map(createProductResource, Product.class);
+        // Unknown behavior, the map assigns the product category id as product id, so its necessary set to null
+        product.setId(null);
+        return product;
     }
 
     @Override

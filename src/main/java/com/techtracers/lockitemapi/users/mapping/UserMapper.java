@@ -4,6 +4,7 @@ import com.crudjpa.mapping.IEntityMapper;
 import com.techtracers.lockitemapi.shared.mapping.EnhancedModelMapper;
 import com.techtracers.lockitemapi.users.domain.model.User;
 import com.techtracers.lockitemapi.users.resources.CreateUserResource;
+import com.techtracers.lockitemapi.users.resources.LoginResponse;
 import com.techtracers.lockitemapi.users.resources.UpdateUserResource;
 import com.techtracers.lockitemapi.users.resources.UserResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,9 @@ public class UserMapper implements IEntityMapper<User, UserResource, CreateUserR
     @Override
     public void fromUpdateResourceToModel(UpdateUserResource updateUserResource, User user) {
         mapper.map(updateUserResource, user);
+    }
+
+    public LoginResponse fromModelToLoginResponse(User user) {
+        return mapper.map(user, LoginResponse.class);
     }
 }

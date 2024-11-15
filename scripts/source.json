@@ -164,102 +164,122 @@
     {
       "productId": 1,
       "storeId": 1,
-      "price": 99.90
+      "price": 99.90,
+      "iotUID": "e8a1-f82e-42b2-8ace-357cd9990093"
     },
     {
       "productId": 2,
       "storeId": 1,
-      "price": 120.50
+      "price": 120.50,
+      "iotUID": "09f4-b121-4563-9c5a-582deb117901"
     },
     {
       "productId": 3,
       "storeId": 2,
-      "price": 85.00
+      "price": 85.00,
+      "iotUID": "721b-23c4-467a-b381-190e21894b23"
     },
     {
       "productId": 4,
       "storeId": 2,
-      "price": 60.00
+      "price": 60.00,
+      "iotUID": "3c8f-a765-4912-b109-76a234567890"
     },
     {
       "productId": 5,
       "storeId": 3,
-      "price": 75.50
+      "price": 75.50,
+      "iotUID": "f43a-1b2c-4d3e-8f45-6789abcdef0123"
     },
     {
       "productId": 6,
       "storeId": 3,
-      "price": 55.00
+      "price": 55.00,
+      "iotUID": "9abc-def0-1234-5678-90abcdef123456"
     },
     {
       "productId": 7,
       "storeId": 4,
-      "price": 130.00
+      "price": 130.00,
+      "iotUID": "5432-10fe-4dcba-9876-543210fedcba98"
     },
     {
       "productId": 8,
       "storeId": 4,
-      "price": 200.00
+      "price": 200.00,
+      "iotUID": "8765-4321-0fedc-ba98-76543210fedcba"
     },
     {
       "productId": 9,
       "storeId": 5,
-      "price": 150.00
+      "price": 150.00,
+      "iotUID": "cba9-8765-4321-0fed-cba9876543210f"
     },
     {
       "productId": 10,
       "storeId": 5,
-      "price": 35.00
+      "price": 35.00,
+      "iotUID": "fedc-ba98-7654-3210-fedcba987654321"
     },
     {
       "productId": 11,
       "storeId": 1,
-      "price": 45.00
+      "price": 45.00,
+      "iotUID": "a1b2-c3d4-e5f6-789a-bcdef0123456"
     },
     {
       "productId": 12,
       "storeId": 1,
-      "price": 25.00
+      "price": 25.00,
+      "iotUID": "f0e1-d2c3-b4a5-9687-6543210fedcba"
     },
     {
       "productId": 13,
       "storeId": 2,
-      "price": 250.00
+      "price": 250.00,
+      "iotUID": "2345-6789-abcde-fghij-klmnopqrstuv"
     },
     {
       "productId": 14,
       "storeId": 2,
-      "price": 99.00
+      "price": 99.00,
+      "iotUID": "wxyz-0123-4567-89abc-defghijklmno"
     },
     {
       "productId": 15,
       "storeId": 3,
-      "price": 185.00
+      "price": 185.00,
+      "iotUID": "pqrst-uvwxyz-01234-56789-abcdefghi"
     },
     {
       "productId": 16,
       "storeId": 3,
-      "price": 50.00
+      "price": 50.00,
+      "iotUID": "jklmno-pqrst-uvwxyz-01234-56789a"
     },
     {
       "productId": 17,
       "storeId": 4,
-      "price": 89.90
+      "price": 89.90,
+      "iotUID": "89abc-defghi-jklmno-pqrst-uvwxyz01"
     },
     {
       "productId": 18,
       "storeId": 4,
-      "price": 40.00
+      "price": 40.00,
+      "iotUID": "56789-abcdef-ghijkl-mnopqr-stuvwx"
     },
     {
       "productId": 19,
       "storeId": 5,
-      "price": 180.00
+      "price": 180.00,
+      "iotUID": "yz012-34567-89abc-defgh-ijklmn"
     },
     {
       "productId": 20,
       "storeId": 5,
-      "price": 150.00
+      "price": 150.00,
+      "iotUID": "nmjik-lmnop-qrstuv-wxyz0-12345"
     }
   ],
   "users": [

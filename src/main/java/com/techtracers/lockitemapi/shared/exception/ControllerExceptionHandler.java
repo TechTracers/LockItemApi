@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 
@@ -34,6 +35,12 @@ public class ControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
         return ErrorMessage.internalServerError(ex, request);
+    }
+
+    @ExceptionHandler(HttpClientErrorException.Forbidden.class)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    public ErrorMessage forbiddenRequest(HttpClientErrorException.Forbidden ex, WebRequest request) {
+        return ErrorMessage.withCode(HttpStatus.FORBIDDEN.value(), ex, request);
     }
 
 }

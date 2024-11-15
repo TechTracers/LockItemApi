@@ -19,12 +19,15 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    JwtHandler jwtHandler;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("Authorization");
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
-            Long id = JwtHandler.getIdFromToken(token);
+            Long id = jwtHandler.getIdFromToken(token);
             UserDetails details = JwtUserDetails.fromUser(userService.getById(id).orElseThrow());
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     details, null, details.getAuthorities());

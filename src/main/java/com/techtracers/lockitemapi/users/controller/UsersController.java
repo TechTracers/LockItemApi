@@ -1,27 +1,33 @@
 package com.techtracers.lockitemapi.users.controller;
 
 import com.crudjpa.controller.CrudController;
-import com.crudjpa.enums.MapFrom;
 import com.techtracers.lockitemapi.security.domain.enums.Roles;
 import com.techtracers.lockitemapi.security.domain.models.Role;
 import com.techtracers.lockitemapi.security.domain.services.IRoleService;
+import com.techtracers.lockitemapi.security.middleware.JwtHandler;
+import com.techtracers.lockitemapi.security.middleware.JwtUserDetails;
 import com.techtracers.lockitemapi.shared.exception.InvalidCreateResourceException;
 import com.techtracers.lockitemapi.shared.exception.InvalidRequestException;
 import com.techtracers.lockitemapi.users.domain.model.User;
 import com.techtracers.lockitemapi.users.domain.service.IUserService;
 import com.techtracers.lockitemapi.users.mapping.UserMapper;
 import com.techtracers.lockitemapi.users.resources.CreateUserResource;
+import com.techtracers.lockitemapi.users.resources.LoginResponse;
 import com.techtracers.lockitemapi.users.resources.UpdateUserResource;
 import com.techtracers.lockitemapi.users.resources.UserResource;
 import com.techtracers.lockitemapi.users.resources.request.LoginRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -30,12 +36,16 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
     private final IUserService userService;
     private final IRoleService roleService;
     private final PasswordEncoder encoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtHandler jwtHandler;
 
-    public UsersController(IUserService userService, UserMapper mapper, PasswordEncoder encoder, IRoleService roleService) {
+    public UsersController(IUserService userService, UserMapper mapper, PasswordEncoder encoder, IRoleService roleService, AuthenticationManager authenticationManager, JwtHandler jwtHandler) {
         super(userService, mapper);
         this.userService = userService;
         this.roleService = roleService;
         this.encoder = encoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtHandler = jwtHandler;
     }
 
     private void validateUserExists(String username) {
@@ -60,16 +70,41 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
 
     @Override
     protected User fromCreateResourceToModel(CreateUserResource resource) {
-        Optional<Role> role = roleService.findByName(Roles.valueOf((String) resource.getRole()));
+        Optional<Role> role = roleService.findByName(Roles.valueOf(resource.getRole().name()));
+
         if (role.isEmpty())
             throw new InvalidCreateResourceException("Role not found");
 
-        resource.setRole(role.get());
-        return super.fromCreateResourceToModel(resource);
+        resource.setPassword(encoder.encode(resource.getPassword()));
+
+        if (resource.getRole() == Roles.ADMIN)
+            validateAdminCreation();
+
+        User user = super.fromCreateResourceToModel(resource);
+        user.setRole(role.get());
+        return user;
+    }
+
+    private void validateAdminCreation() {
+        Optional<User> admin = userService.findFirstAdmin();
+        if (admin.isPresent()) {
+            JwtUserDetails details = JwtUserDetails.getFromSecurityContext();
+            if (!details.hasRole(Roles.ADMIN))
+                throw new InvalidRequestException("Only admins can create other admin.");
+        }
+    }
+
+    @Override
+    protected void fromUpdateResourceToModel(UpdateUserResource updateUserResource, User user) {
+        if (updateUserResource.getPassword() != null)
+            updateUserResource.setPassword(encoder.encode(updateUserResource.getPassword()));
+
+        super.fromUpdateResourceToModel(updateUserResource, user);
     }
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> getUserById(@PathVariable Long id) {
+        validateAccess(id, "get");
         return getById(id);
     }
 
@@ -90,25 +125,43 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
         return insert(resource);
     }
 
+    private void validateAccess(Long id, String type) {
+        JwtUserDetails details = JwtUserDetails.getFromSecurityContext();
+        if (!details.hasRole(Roles.ADMIN) && !Objects.equals(id, details.getId()))
+            throw new InvalidRequestException("You cannot %s this resource.".formatted(type));
+    }
+
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> updateUserById(@PathVariable Long id, @RequestBody UpdateUserResource resource, BindingResult result) {
         validateBindingResult(result);
+        validateAccess(id, "update");
         return update(id, resource);
     }
 
 
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> deleteUserById(@PathVariable Long id) {
+        validateAccess(id, "delete");
         return delete(id);
     }
 
     @PostMapping(value = "login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserResource> login(@Valid @RequestBody LoginRequest request, BindingResult result) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request, BindingResult result) {
         validateBindingResult(result);
-        Optional<User> user = userService.findUserByUsernameAndPassword(request.getUsername(), request.getPassword());
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+        );
+
+        String token = jwtHandler.generateToken(authentication);
+        JwtUserDetails details = (JwtUserDetails) authentication.getPrincipal();
+        Optional<User> user = userService.getById(details.getId());
+
         if (user.isEmpty())
             throw new InvalidRequestException("Invalid credentials");
 
-        return ResponseEntity.ok(this.fromModelToResource(user.get(), MapFrom.GET));
+        LoginResponse response = ((UserMapper) mapper).fromModelToLoginResponse(user.get());
+        response.setToken(token);
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,8 +1,6 @@
 package com.techtracers.lockitemapi.users.resources;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techtracers.lockitemapi.security.domain.enums.Roles;
-import com.techtracers.lockitemapi.security.domain.models.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -39,8 +37,5 @@ public class CreateUserResource {
     @Size(max = 9)
     private String phone;
 
-    @JsonIgnore
-    private Role mRole;
-
-    private Object role = Roles.NORMAL;
+    private Roles role = Roles.NORMAL;
 }
