@@ -34,7 +34,7 @@ def first(iterable, default=None, key=None):
     return default
 
 
-base = "http://localhost:8080/api/v1/"
+base = "https://lockitem-abaje5g7dagcbsew.canadacentral-01.azurewebsites.net/api/v1/"
 with open("source.json", encoding="utf-8") as fs:
     source = JSONObject(json.load(fs))
 
