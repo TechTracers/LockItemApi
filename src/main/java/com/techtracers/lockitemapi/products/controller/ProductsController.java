@@ -68,6 +68,12 @@ public class ProductsController extends CrudController<Product, Long, ProductRes
         return insert(resource);
     }
 
+    @Override
+    protected void fromUpdateResourceToModel(UpdateProductResource updateProductResource, Product product) {
+        super.fromUpdateResourceToModel(updateProductResource, product);
+        product.getId();
+    }
+
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductResource> updateProduct(@PathVariable Long id, @Valid @RequestBody UpdateProductResource resource, BindingResult result) {
         if (result.hasErrors())
