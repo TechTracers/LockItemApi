@@ -5,21 +5,22 @@ import com.techtracers.lockitemapi.security.domain.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Arrays;
-
-@Data()
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResource {
-    private Long id;
+public class LoginResponse {
     private String username;
     private String name;
     private String lastname;
     private String email;
     private String phone;
-    private Role role;
-    public Roles getRole() {
-        return role.getName();
+    private Roles role;
+    private String token;
+
+    public void setRole(Role role) {
+        this.role = role.getName();
     }
+
 }

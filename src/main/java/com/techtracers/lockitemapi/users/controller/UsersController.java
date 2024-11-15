@@ -13,6 +13,7 @@ import com.techtracers.lockitemapi.users.domain.model.User;
 import com.techtracers.lockitemapi.users.domain.service.IUserService;
 import com.techtracers.lockitemapi.users.mapping.UserMapper;
 import com.techtracers.lockitemapi.users.resources.CreateUserResource;
+import com.techtracers.lockitemapi.users.resources.LoginResponse;
 import com.techtracers.lockitemapi.users.resources.UpdateUserResource;
 import com.techtracers.lockitemapi.users.resources.UserResource;
 import com.techtracers.lockitemapi.users.resources.request.LoginRequest;
@@ -22,11 +23,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -37,7 +40,6 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final JwtHandler jwtHandler;
-
 
     public UsersController(IUserService userService, UserMapper mapper, PasswordEncoder encoder, IRoleService roleService, AuthenticationManager authenticationManager, JwtHandler jwtHandler) {
         super(userService, mapper);
@@ -77,9 +79,21 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
 
         resource.setPassword(encoder.encode(resource.getPassword()));
 
+        if (resource.getRole() == Roles.ADMIN)
+            validateAdminCreation();
+
         User user = super.fromCreateResourceToModel(resource);
         user.setRole(role.get());
         return user;
+    }
+
+    private void validateAdminCreation() {
+        Optional<User> admin = userService.findFirstAdmin();
+        if (admin.isPresent()) {
+            JwtUserDetails details = JwtUserDetails.getFromSecurityContext();
+            if (!details.hasRole(Roles.ADMIN))
+                throw new InvalidRequestException("Only admins can create other admin.");
+        }
     }
 
     @Override
@@ -92,6 +106,7 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> getUserById(@PathVariable Long id) {
+        validateAccess(id, "get");
         return getById(id);
     }
 
@@ -112,20 +127,28 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
         return insert(resource);
     }
 
+    private void validateAccess(Long id, String type) {
+        JwtUserDetails details = JwtUserDetails.getFromSecurityContext();
+        if (!details.hasRole(Roles.ADMIN) && !Objects.equals(id, details.getId()))
+            throw new InvalidRequestException("You cannot %s this resource.".formatted(type));
+    }
+
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> updateUserById(@PathVariable Long id, @RequestBody UpdateUserResource resource, BindingResult result) {
         validateBindingResult(result);
+        validateAccess(id, "update");
         return update(id, resource);
     }
 
 
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResource> deleteUserById(@PathVariable Long id) {
+        validateAccess(id, "delete");
         return delete(id);
     }
 
     @PostMapping(value = "login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserResource> login(@Valid @RequestBody LoginRequest request, BindingResult result) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request, BindingResult result) {
         validateBindingResult(result);
 
         Authentication authentication = authenticationManager.authenticate(
@@ -139,8 +162,8 @@ public class UsersController extends CrudController<User, Long, UserResource, Cr
         if (user.isEmpty())
             throw new InvalidRequestException("Invalid credentials");
 
-        UserResource resource = this.fromModelToResource(user.get(), MapFrom.GET);
-        resource.setToken(token);
-        return ResponseEntity.ok(resource);
+        LoginResponse response = ((UserMapper) mapper).fromModelToLoginResponse(user.get());
+        response.setToken(token);
+        return ResponseEntity.ok(response);
     }
 }

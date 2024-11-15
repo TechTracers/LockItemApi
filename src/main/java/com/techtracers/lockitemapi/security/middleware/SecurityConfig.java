@@ -53,9 +53,8 @@ public class SecurityConfig {
                             .permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/stores/**", "/api/v1/products/**", "/api/v1/products-categories/**")
                             .authenticated()
-                            .requestMatchers("/api/v1/stores/**", "/api/v1/products/**", "/api/v1/products-categories/**")
+                            .requestMatchers("api/v1/users", "/api/v1/stores/**", "/api/v1/products/**", "/api/v1/products-categories/**")
                             .hasRole(Roles.ADMIN.name())
-
                             .anyRequest()
                             .authenticated();
                 })
