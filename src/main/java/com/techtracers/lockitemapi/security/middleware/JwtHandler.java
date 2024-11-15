@@ -4,17 +4,19 @@ import io.jsonwebtoken.*;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtHandler {
     @Value("${authorization.jwt.secret}")
-    static private String secret;
+    private String secret;
 
     @Value("${authorization.jwt.expiration.days}")
-    static private int expirationDays;
+    private int expirationDays;
 
-    static public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication) {
         JwtUserDetails userDetails = (JwtUserDetails) authentication.getPrincipal();
         String subject = userDetails.getId()
                 .toString();
@@ -31,7 +33,7 @@ public class JwtHandler {
                 .compact();
     }
 
-    static public Long getIdFromToken(String token) {
+    public Long getIdFromToken(String token) {
         return Long.parseLong(
                 Jwts.parser()
                         .setSigningKey(secret)
@@ -41,7 +43,7 @@ public class JwtHandler {
         );
     }
 
-    static public boolean validateToken(String token) {
+    public boolean validateToken(String token) {
         try {
             Jwts.parser()
                     .setSigningKey(secret)

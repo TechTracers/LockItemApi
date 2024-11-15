@@ -19,6 +19,7 @@ public class UserResource {
     private String email;
     private String phone;
     private Role role;
+    private String token;
 
     public Roles getRole() {
         return Arrays.stream(Roles.values())

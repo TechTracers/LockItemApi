@@ -39,8 +39,5 @@ public class CreateUserResource {
     @Size(max = 9)
     private String phone;
 
-    @JsonIgnore
-    private Role mRole;
-
-    private Object role = Roles.NORMAL;
+    private Roles role = Roles.NORMAL;
 }
