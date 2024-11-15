@@ -2,7 +2,6 @@ package com.techtracers.lockitemapi.security.middleware;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techtracers.lockitemapi.security.domain.enums.Roles;
-import com.techtracers.lockitemapi.shared.exception.InvalidRequestException;
 import com.techtracers.lockitemapi.shared.exception.UnauthorizedException;
 import com.techtracers.lockitemapi.users.domain.model.User;
 import lombok.AllArgsConstructor;

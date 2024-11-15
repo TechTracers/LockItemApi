@@ -5,7 +5,6 @@ import com.techtracers.lockitemapi.security.domain.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @NoArgsConstructor
