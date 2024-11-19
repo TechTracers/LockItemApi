@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("${lockitem.stores.path}/{id}/products")
+@RequestMapping("${lockitem.stores.path}")
 public class StoreProductController extends CrudController<StoreProduct, Long, StoreProductResource, CreateStoreProductResource, UpdateStoreProductResource> {
     private final IStoreService storeService;
     private final IProductService productService;
@@ -40,8 +40,13 @@ public class StoreProductController extends CrudController<StoreProduct, Long, S
         this.storeProductService = storeProductService;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<StoreProductResource>> getAllProducts(@PathVariable Long id) {
+    @GetMapping("/products")
+    public ResponseEntity<List<StoreProductResource>> getAllProducts() {
+        return getAll();
+    }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<List<StoreProductResource>> getAllProductsByStore(@PathVariable Long id) {
         Store store = getStore(id);
         List<StoreProductResource> products = this.storeProductService.findByStore(store)
                 .stream()
@@ -87,7 +92,7 @@ public class StoreProductController extends CrudController<StoreProduct, Long, S
     }
 
 
-    @PostMapping()
+    @PostMapping("/{id}/products")
     public ResponseEntity<StoreProductResource> insertProductToStore(@PathVariable Long id, @RequestBody CreateStoreProductResource resource, BindingResult result) {
         if (result.hasErrors())
             throw new InvalidCreateResourceException(getErrorsFromResult(result));
@@ -113,7 +118,7 @@ public class StoreProductController extends CrudController<StoreProduct, Long, S
         Double price = storeProduct.getPrice();
     }
 
-    @PutMapping()
+    @PutMapping("/{id}/products")
     public ResponseEntity<StoreProductResource> updateProductFromStore(@PathVariable Long id, @RequestBody UpdateStoreProductResource resource, BindingResult result) {
         if (result.hasErrors())
             throw new InvalidUpdateResourceException(getErrorsFromResult(result));
@@ -122,7 +127,7 @@ public class StoreProductController extends CrudController<StoreProduct, Long, S
         return update(id, resource);
     }
 
-    @DeleteMapping("{productId}")
+    @DeleteMapping("/{id}/products/{productId}")
     public ResponseEntity<StoreProductResource> deleteProductFromStore(@PathVariable Long id, @PathVariable Long productId) {
         ImmutablePair<Store, Product> result = getStoreAndProduct(id, productId);
         Optional<StoreProduct> store = storeProductService.findByStoreAndProduct(result.getLeft(), result.getRight());
