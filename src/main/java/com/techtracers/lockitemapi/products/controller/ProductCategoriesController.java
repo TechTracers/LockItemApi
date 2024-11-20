@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${lockitem.products.category.path}")
+@CrossOrigin(maxAge = 3600, origins = "*")
 public class ProductCategoriesController extends CrudController<ProductCategory, Long,
         ProductCategoryResource, CreateProductCategoryResource, CreateProductCategoryResource> {
 

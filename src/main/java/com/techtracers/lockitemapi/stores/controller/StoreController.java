@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${lockitem.stores.path}")
+@CrossOrigin(maxAge = 3600, origins = "*")
 public class StoreController extends CrudController<Store, Long, StoreResource, CreateStoreResource, UpdateStoreResource> {
 
 
