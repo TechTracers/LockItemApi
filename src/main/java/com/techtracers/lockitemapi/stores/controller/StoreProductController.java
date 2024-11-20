@@ -28,6 +28,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${lockitem.stores.path}")
+@CrossOrigin(maxAge = 3600, origins = "*")
 public class StoreProductController extends CrudController<StoreProduct, Long, StoreProductResource, CreateStoreProductResource, UpdateStoreProductResource> {
     private final IStoreService storeService;
     private final IProductService productService;

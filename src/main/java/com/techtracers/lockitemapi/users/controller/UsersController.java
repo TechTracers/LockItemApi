@@ -32,6 +32,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${lockitem.users.path}")
+@CrossOrigin(maxAge = 3600, origins = "*")
 public class UsersController extends CrudController<User, Long, UserResource, CreateUserResource, UpdateUserResource> {
     private final IUserService userService;
     private final IRoleService roleService;
