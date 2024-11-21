@@ -45,6 +45,11 @@ public class StoreProductController extends CrudController<StoreProduct, Long, S
         return getAll();
     }
 
+    @GetMapping("/products/{id}")
+    public ResponseEntity<StoreProductResource> getProductById(@PathVariable Long id) {
+        return getById(id);
+    }
+
     @GetMapping("/{id}/products")
     public ResponseEntity<List<StoreProductResource>> getAllProductsByStore(@PathVariable Long id) {
         Store store = getStore(id);
